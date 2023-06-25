@@ -1,0 +1,20 @@
+{
+  "name": "gpt-voice-bot",
+  "version": "1.0.0",
+  "description": "GPT voice bot app",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon server.js"
+  },
+  "author": "Aman",
+  "license": "MIT",
+  "dependencies": {
+    "@google-cloud/speech": "^5.5.0",
+    "@google-cloud/text-to-speech": "^4.2.2",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "nodemon": "^2.0.22",
+    "socket.io": "^4.7.0"
+  }
+}

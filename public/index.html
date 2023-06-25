@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Voice Bot</title>
+</head>
+<body>
+  <h1>Voice Bot</h1>
+  <button id="recordBtn">Start Recording</button>
+  <audio id="audioPlayer" controls></audio>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.0/socket.io.js"></script>
+  <script>
+    const socket = io();
+
+    // Function to handle sending voice data to the server
+    function sendVoiceData(audioData) {
+      socket.emit('voice', audioData);
+    }
+
+    // Handle audio recording and processing
+    async function handleRecording() {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      const mediaRecorder = new MediaRecorder(stream);
+      const audioChunks = [];
+
+      mediaRecorder.addEventListener('dataavailable', (event) => {
+        audioChunks.push(event.data);
+      });
+
+      mediaRecorder.addEventListener('stop', async () => {
+        const audioBlob = new Blob(audioChunks);
+        const reader = new FileReader();
+
+        reader.addEventListener('loadend', () => {
+          const audioData = reader.result;
+          sendVoiceData(audioData);
+        });
+
+        reader.readAsArrayBuffer(audioBlob);
+      });
+
+      mediaRecorder.start();
+
+      const stopRecording = () => {
+        mediaRecorder.stop();
+        recordBtn.removeEventListener('click', stopRecording);
+        recordBtn.textContent = 'Start Recording';
+      };
+
+      recordBtn.addEventListener('click', stopRecording);
+      recordBtn.textContent = 'Stop Recording';
+    }
+
+    // Receive and play the audio response
+    socket.on('audio', (audioBuffer) => {
+      const audioPlayer = document.getElementById('audioPlayer');
+      const audioUrl = URL.createObjectURL(new Blob([audioBuffer], { type: 'audio/mpeg' }));
+      audioPlayer.src = audioUrl;
+    });
+
+    // Start recording when the button is clicked
+    const recordBtn = document.getElementById('recordBtn');
+    recordBtn.addEventListener('click', handleRecording);
+  </script>
+</body>
+</html>
