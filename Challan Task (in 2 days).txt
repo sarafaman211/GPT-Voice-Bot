@@ -1,0 +1,95 @@
+create a CRUD operations with the help of nestJS and store the data in mongodb database
+mongoose Schema is given
+timestamp: {
+    type: Date,
+    required: false,
+  },
+
+  ChallanNo: {
+    type: String,
+    required: false,
+  },
+
+  AnalyticsId: {
+    type:String,
+    required:false
+  },
+
+  Status: {
+    type: String,
+    required: false
+  },
+
+  Priority: {
+    type: String,
+    required: false
+  },
+
+  CameraName: {
+    type: String,
+    required: false,
+  },
+  CustomerName: {
+    type: String,
+    required: false,
+  },
+  Location: {
+    type: String,
+    required: false,
+  },
+
+
+  Lat: {
+    type: String,
+    required: false,
+  },
+  Long: {
+    type: String,
+    required: false,
+  },
+  Speed: {
+    type: Number,
+    required: false,
+  },
+
+
+  EventType: {
+    type: String,
+    required: false,
+  },
+
+  LPNumber: {
+    type: String,
+    required: false,
+  },
+
+
+  SnapshotURL:
+  {
+    type: String,
+    required: false,
+  },
+  LPImageURL: {
+    type: String,
+    required: false,
+  },
+
+  vehicleRegistrationNumber:{
+    type: String,
+    required: false,
+  },
+
+  IsChallangenerated:{
+    type: Boolean,
+    required: false,
+  },
+
+  RLVDImageURL: {
+    type: String,
+    required: false,
+  },
+  VideoURL: {
+    type: String,
+    required: false,
+  },
+});
